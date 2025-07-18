@@ -20,15 +20,6 @@ app.use("/api/users", require("./routes/userRoutes"));
 // Serve static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Handle production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-  });
-}
-
-// 404 handler for unknown routes
 app.use((req, res, next) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
